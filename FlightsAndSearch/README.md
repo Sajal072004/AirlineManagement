@@ -21,7 +21,15 @@
 
 ```
 
+```
+
 - once you have added our db config as listed above , go to the src folder from your server and execute 'npx sequelize db:create'
+
+and then execute
+`npx sequelize db:migrate`
+
+```
+
 
 ## DB Design
 
@@ -57,3 +65,5 @@
 Airplane ---- 1 : N ---->>> Flights
 Airport ---- 1 : N ---->>> Flights
 City ---- 1 : N ---->>> Airport
+
+
