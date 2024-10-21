@@ -21,3 +21,10 @@
 ```
 
 - once you have added our db config as listed above , go to the src folder from your server and execute 'npx sequelize db:create'
+
+
+## DB Design
+  - Airplance Table
+  - Flight
+  - Airport
+  - City
