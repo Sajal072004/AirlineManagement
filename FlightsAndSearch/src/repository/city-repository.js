@@ -24,11 +24,19 @@ class CityRepository {
 
   async updateCity(cityId, data) {
     try {
-      const city = await City.update(data, {
-        where: {
-          id: cityId,
-        },
-      });
+      //the below approach also works but does not return the updated data;
+      // const city = await City.update(data, {
+      //   where: {
+      //     id: cityId,
+      //   },
+      // });
+      // return city;
+
+      //for getting the updated value we use this
+
+      const city = await City.findByPk(cityId);
+      city.name = data.name;
+      await city.save();
       return city;
     } catch (error) {
       console.log("error in repo layer");
