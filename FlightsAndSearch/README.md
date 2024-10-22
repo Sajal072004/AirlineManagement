@@ -57,6 +57,9 @@ and then execute
 - name
 - city_id
 - address
+- updated_at
+- created_at
+- RelationShip -> city has many airports , and every airport belong to a city.
 
 - City
 - id
