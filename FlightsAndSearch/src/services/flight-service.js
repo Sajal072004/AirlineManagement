@@ -1,4 +1,5 @@
 const { FlightRepository, AirplaneRepository } = require("../repository/index");
+const { trace } = require("../routes");
 
 const {compareTime} = require('../utils/helper')
 
@@ -27,8 +28,16 @@ class FlightService {
     }
   }
 
-  async getFlightData() {
-    //todo
+  async getAllFlightData(data) {
+    try {
+      
+      const flights = await this.flightRepository.getAllFlights(data);
+      return flights;
+
+    } catch (error) {
+      console.log("error in flights service layer");
+      throw { error };
+    }
   }
 
 
