@@ -31,7 +31,22 @@ class UserService {
       const newJWT = this.createToken({ email: user.email, id: user.id });
       return newJWT;
     } catch (error) {
-      console.log("somethign went wrong in sigin process");
+      console.log("something went wrong in sigin process");
+    }
+  }
+
+  async isAuthenticated(token) {
+    try {
+      const response = this.verifyToken(token);
+      if(!response){
+        throw { error:  'Invalid token'};
+      }
+      const user = this.userRepository.getById(response.id);
+      if(!user) throw {error:"no user with corresponding token exists"};
+      return user.id;
+    } catch (error) {
+      console.log('error in isAuthenticated service');
+      throw error;
     }
   }
 
