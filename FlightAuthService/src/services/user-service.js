@@ -1,11 +1,11 @@
-const UserRepository = require('../repository/user-repository');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const UserRepository = require("../repository/user-repository");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
-const {JWT_KEY} = require('../config/serverConfig')
+const { JWT_KEY } = require("../config/serverConfig");
 
 class UserService {
-  constructor(){
+  constructor() {
     this.userRepository = new UserRepository();
   }
 
@@ -19,10 +19,26 @@ class UserService {
     }
   }
 
+  async signIn(email, plainPassword) {
+    try {
+      const user = await this.userRepository.getByEmail(email);
+      const passwordsMatch = this.checkPassword(plainPassword, user.password);
+      if (!passwordsMatch) {
+        console.log("password doesn't match");
+        throw { error: "Incorrect password" };
+      }
+
+      const newJWT = this.createToken({ email: user.email, id: user.id });
+      return newJWT;
+    } catch (error) {
+      console.log("somethign went wrong in sigin process");
+    }
+  }
+
   createToken(user) {
     try {
-      const result = jwt.sign(user , JWT_KEY , {
-        expiresIn: '15d'
+      const result = jwt.sign(user, JWT_KEY, {
+        expiresIn: "15d",
       });
       return result;
     } catch (error) {
@@ -33,24 +49,22 @@ class UserService {
 
   verifyToken(token) {
     try {
-      const response = jwt.verify(token , JWT_KEY);
+      const response = jwt.verify(token, JWT_KEY);
       return response;
     } catch (error) {
-      console.log("something went wrong in token validation" , error);
+      console.log("something went wrong in token validation", error);
       throw error;
     }
   }
 
-  checkPassword(userInputPlainPassword , encryptedPassword){
+  checkPassword(userInputPlainPassword, encryptedPassword) {
     try {
-      return bcrypt.compareSync(userInputPlainPassword , encryptedPassword);
+      return bcrypt.compareSync(userInputPlainPassword, encryptedPassword);
     } catch (error) {
       console.log("something went wrong in password comparison");
       throw error;
     }
-
   }
-
 }
 
 module.exports = UserService;
