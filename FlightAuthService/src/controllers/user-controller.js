@@ -28,16 +28,20 @@ const create = async ( req,res) => {
    }
 }
 
-const signIn = async (req,res) => {
+const signIn = async (req, res) => {
   try {
-    const response = await userService.signIn(req.body.email , req.body.password);
-    return response;
+    const response = await userService.signIn(req.body.email, req.body.password);
+    return res.status(200).json({
+      success: true,
+      data: response,
+      message: 'User logged in successfully'
+    });
   } catch (error) {
     return res.status(500).json({
-      message:"something went wrong in auth controller",
-      data:{},
-      success : false,
-      err: error
+      message: "Something went wrong in auth controller",
+      data: {},
+      success: false,
+      err: error 
     });
   }
 }
