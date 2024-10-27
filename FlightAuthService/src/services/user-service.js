@@ -14,7 +14,7 @@ class UserService {
       const user = await this.userRepository.create(data);
       return user;
     } catch (error) {
-      console.log("something wrong in user serive layer");
+      console.log("something wrong in user service layer");
       throw error;
     }
   }
@@ -41,7 +41,7 @@ class UserService {
       if(!response){
         throw { error:  'Invalid token'};
       }
-      const user = this.userRepository.getById(response.id);
+      const user = await this.userRepository.getById(response.id);
       if(!user) throw {error:"no user with corresponding token exists"};
       return user.id;
     } catch (error) {
