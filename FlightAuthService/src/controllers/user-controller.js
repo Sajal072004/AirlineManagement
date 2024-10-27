@@ -19,11 +19,11 @@ const create = async ( req,res) => {
     });
    } catch (error) {
     console.log(error);
-    return res.status(500).json({
-      message:"something went wrong in auth controller",
+    return res.status(400).json({
+      message: error.message,
       data:{},
       success : false,
-      err: error
+      err: error.explanation
     })
    }
 }
@@ -37,11 +37,12 @@ const signIn = async (req, res) => {
       message: 'User logged in successfully'
     });
   } catch (error) {
-    return res.status(500).json({
-      message: "Something went wrong in auth controller",
+    
+    return res.status(error.statusCode).json({
+      message: error.message,
       data: {},
       success: false,
-      err: error 
+      err: error.explanation 
     });
   }
 }
