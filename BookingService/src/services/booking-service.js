@@ -29,8 +29,8 @@ class BookingService {
         const updateFlighRequestUrl = `${FLIGHT_SERVICE_PATH}/api/v1/flights/${booking.flightId}`;
 
         await axios.patch(updateFlighRequestUrl , {totalSeats: flightData.totalSeats - booking.noOfSeats});
-
-        return booking;
+        const finalBooking =await this.bookingRepository.update(booking.id , {status:"Booked"});
+        return finalBooking;
         
         
 
