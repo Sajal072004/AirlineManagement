@@ -21,11 +21,22 @@ class BookingRepository {
     }
   }
 
-  async update(data){
+  async update(bookingId, data){
     try {
-      
+      await Booking.update(data , {
+        where : {
+          id:bookingId
+        }
+      });
+      return true;
     } catch (error) {
-      
+      throw new AppError(
+        'Repository Error',
+        'Cannot update the  booking',
+        'There was some issue updating the booking.Try again later',
+        StatusCodes.INTERNAL_SERVER_ERROR
+
+      )
     }
   }
 }
