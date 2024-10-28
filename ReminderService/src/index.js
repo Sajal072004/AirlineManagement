@@ -21,13 +21,13 @@ const setupAndStartServer = () => {
     //   'Hey, How are you?'
     // )
 
-    cron.schedule('* * * * *', () => {
-      try {
-        console.log('running every two minutes');
-      } catch (error) {
-        console.error('Cron job error:', error);
-      }
-    });
+    // cron.schedule('* * * * *', () => {
+    //   try {
+    //     console.log('running every two minutes');
+    //   } catch (error) {
+    //     console.error('Cron job error:', error);
+    //   }
+    // });
     
 
   });
