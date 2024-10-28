@@ -11,26 +11,24 @@ module.exports = {
       },
       subject: {
         type: Sequelize.STRING,
-        allowNull:false
-
+        allowNull: false
       },
       content: {
         type: Sequelize.STRING,
-        allowNull:false
+        allowNull: false
       },
       recipientEmail: {
         type: Sequelize.STRING,
-        allowNull:false
+        allowNull: false
       },
       status: {
-        type: Sequelize.ENUM,
-        allowNull:false,
-        values: ['PENDING', 'SUCCESS', 'FAILED']
-
+        type: Sequelize.ENUM('PENDING', 'SUCCESS', 'FAILED'),
+        allowNull: false,
+        defaultValue: 'PENDING'
       },
       notificationTime: {
         type: Sequelize.DATE,
-        allowNull:false
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -39,6 +37,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      deletedAt: {  // Add this for soft deletes with paranoid mode
+        type: Sequelize.DATE,
+        allowNull: true
       }
     });
   },
