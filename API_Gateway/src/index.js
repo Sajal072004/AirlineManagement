@@ -16,6 +16,13 @@ const limiter = rateLimit({
 
 app.use(morgan("combined"));
 app.use(limiter);
+
+app.use('/bookingservice' , (req,res,next) => {
+  console.log('token :' ,req.headers['x-access-token']);
+  next();
+
+});
+
 app.use(
   "/bookingservice",
   createProxyMiddleware({
