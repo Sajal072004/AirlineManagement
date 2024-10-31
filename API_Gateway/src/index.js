@@ -9,13 +9,12 @@ const PORT = 3005;
 app.use(morgan("combined"));
 
 app.use(
-  '/bookingservice',
+  "/bookingservice",
   createProxyMiddleware({
-    target: 'http://localhost:3002',
-    changeOrigin: true,   
+    target: "http://localhost:3002",
+    changeOrigin: true,
   })
 );
-
 
 app.get("/home", (req, res) => {
   return res.json({ message: "Ok" });
